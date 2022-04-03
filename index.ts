@@ -218,15 +218,16 @@ console.log("UTILITY TYPES");
 // example
 interface Car {
   brand: string;
+  model: string;
   color: string;
-  year: number;
-  model?: string;
+  year?: number;
 }
 
 type CarRequired = Required<Car>;
 /*{
     brand: string;
     color: string;
+    year: number;
     model: string;
 }*/
 
@@ -234,5 +235,58 @@ type CarPartial = Partial<Car>;
 /*{
     brand?: string | undefined;
     color?: string | undefined;
+    year?: number | undefined;
     model?: string | undefined;
 }*/
+
+type CarPickBrandAndModel = Pick<Car, "brand" | "model">;
+/*{
+    brand: string;
+    model: string;
+}*/
+
+type CarOmitBrandAndModel = Omit<Car, "brand" | "model">;
+/*{
+    color: string;
+    year?: number | undefined;
+}*/
+
+interface Post {
+  title: string;
+  subtitle: string;
+}
+
+type SectionNames = "sports" | "nutrition" | "business";
+type PostsRecord = Record<SectionNames, Post[]>;
+/*{
+    sports: Post[];
+    nutrition: Post[];
+    business: Post[];
+}*/
+
+const postMappedBySections: PostsRecord = {
+  sports: [
+    {
+      title:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+      subtitle:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    },
+  ],
+  nutrition: [
+    {
+      title:
+        "Contrary to popular belief, Lorem Ipsum is not simply random text.",
+      subtitle:
+        "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
+    },
+  ],
+  business: [
+    {
+      title:
+        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
+      subtitle:
+        "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
+    },
+  ],
+};
