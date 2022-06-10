@@ -68,6 +68,45 @@ const personStringReadOnly: StringfyReadOnly<Person> = {
 // can't do
 // personStringReadOnly.age = "1";
 
+type Getters<Type> = {
+  [Property in keyof Type as `get${Capitalize<
+    string & Property
+  >}`]: () => Type[Property];
+};
+
+type Setters<Type> = {
+  [Property in keyof Type as `set${Capitalize<
+    string & Property
+  >}`]: () => Type[Property];
+};
+
+interface Animal {
+  name: string;
+  age: number;
+  color: string;
+  species: string;
+}
+
+type AnimalGetters = Getters<Animal>;
+/*
+{
+    getName: () => string;
+    getAge: () => number;
+    getColor: () => string;
+    getSpecies: () => string;
+}
+*/
+
+type AnimalSetters = Setters<Animal>;
+/*
+{
+    setName: () => string;
+    setAge: () => number;
+    setColor: () => string;
+    setSpecies: () => string;
+}
+*/
+
 console.log("TYPE GUARDS");
 
 // example with types primitives
